@@ -32,6 +32,24 @@ dracoLoader.setDecoderPath('draco/')
 const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
+//Material
+const bakedMaterial=new THREE.MeshBasicMaterial({color:'#ff0000'})
+
+//Models
+gltfLoader.load(
+    'buildingCopy(2)Draco.glb',
+    (gltf)=>{
+
+        gltf.scene.traverse((child)=>{
+            child.material=bakedMaterial;
+        })
+
+        scene.add(gltf.scene)
+        console.log(gltf.scene)
+
+    }
+)
+
 /**
  * Object
  */
@@ -70,7 +88,7 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = 4
+camera.position.x = -6
 camera.position.y = 2
 camera.position.z = 4
 scene.add(camera)
