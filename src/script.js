@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 
+
 /**
  * Base
  */
@@ -33,7 +34,11 @@ const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
 //Material
-const bakedMaterial=new THREE.MeshBasicMaterial({color:'#ff0000'})
+const bakedTexture=textureLoader.load('baked1.jpg')
+bakedTexture.flipY=false;
+bakedTexture.encoding=THREE.sRGBEncoding;
+const bakedMaterial=new THREE.MeshBasicMaterial({map : bakedTexture})
+
 
 //Models
 gltfLoader.load(
@@ -58,7 +63,7 @@ const cube = new THREE.Mesh(
     new THREE.MeshBasicMaterial()
 )
 
-scene.add(cube)
+// scene.add(cube)
 
 /**
  * Sizes
@@ -106,6 +111,7 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.outputEncoding=THREE.sRGBEncoding;
 
 /**
  * Animate
