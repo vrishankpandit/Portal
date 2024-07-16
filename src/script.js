@@ -3,8 +3,16 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
+// import SPECTOR from "spectorjs";
+
+// import {Spector
 
 
+//Pefromance
+// var SPECTOR = require("spectorjs");
+
+var spector = new window.SPECTOR.Spector()
+spector.displayUI();
 /**
  * Base
  */
@@ -37,7 +45,10 @@ gltfLoader.setDRACOLoader(dracoLoader)
 const bakedTexture=textureLoader.load('baked1.jpg')
 bakedTexture.flipY=false;
 bakedTexture.encoding=THREE.sRGBEncoding;
+
 const bakedMaterial=new THREE.MeshBasicMaterial({map : bakedTexture})
+const poleLightMaterial=new THREE.MeshBasicMaterial({color:'#FCFF0B'})
+
 
 
 //Models
@@ -49,6 +60,14 @@ gltfLoader.load(
             child.material=bakedMaterial;
         })
 
+        const portalLightMesh=gltf.scene.children.find(x=>x.name==='Portal')
+        const poleLightsMesh=gltf.scene.children.find(x=>x.name==='PoleLights')
+
+        poleLightsMesh.material=poleLightMaterial;
+        
+
+
+        // console.log(PoleLightFMesh)
         scene.add(gltf.scene)
         console.log(gltf.scene)
 
