@@ -3,13 +3,13 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
-import  FirefliesVertex from './Shaders/Fireflies/vertex.glsl'
-import  FirefliesFragment from './Shaders/Fireflies/fragment.glsl'
-import  PortalVertex from './Shaders/Portal/vertex.glsl'
-import  PortalFragment from './Shaders/Portal/fragment.glsl'
+import  FirefliesVertex from './shaders/fireflies/vertex.glsl'
+import  FirefliesFragment from './shaders/fireflies/fragment.glsl'
+import  PortalVertex from './shaders/portal/vertex.glsl'
+import  PortalFragment from './shaders/portal/fragment.glsl'
 // import SPECTOR from "spectorjs";
 
-// import {Spector
+
 
 
 //Pefromance
