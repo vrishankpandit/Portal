@@ -5,6 +5,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import  FirefliesVertex from './Shaders/Fireflies/vertex.glsl'
 import  FirefliesFragment from './Shaders/Fireflies/fragment.glsl'
+import  PortalVertex from './Shaders/Portal/vertex.glsl'
+import  PortalFragment from './Shaders/Portal/fragment.glsl'
 // import SPECTOR from "spectorjs";
 
 // import {Spector
@@ -51,7 +53,34 @@ bakedTexture.encoding=THREE.sRGBEncoding;
 const bakedMaterial=new THREE.MeshBasicMaterial({map : bakedTexture})
 const poleLightMaterial=new THREE.MeshBasicMaterial({color:'#FCFF0B'})
 
+const portal={}
+portal.portalColorStart = new THREE.Color('#ffffff');
+portal.portalColorEnd = new THREE.Color('#000000');
 
+
+
+const portalMaterial=new THREE.ShaderMaterial({
+    vertexShader:PortalVertex,
+    fragmentShader:PortalFragment,
+    transparent :true,
+    uniforms:{
+        uTime:{value : 0.0},
+        uStartColor:{value:portal.portalColorStart},
+        uEndColor:{value : portal.portalColorEnd}
+    }
+})
+
+gui
+    .addColor(portal,'portalColorStart')
+    .onChange((value)=>{
+        portalMaterial.uniforms.uStartColor.value.set(portal.portalColorStart)
+    })
+
+gui
+    .addColor(portal,'portalColorEnd')
+    .onChange((value)=>{
+        portalMaterial.uniforms.uEndColor.value.set(portal.portalEndStart)
+    })
 
 //Models
 gltfLoader.load(
@@ -64,6 +93,8 @@ gltfLoader.load(
 
         const portalLightMesh=gltf.scene.children.find(x=>x.name==='Portal')
         portalLightMesh.rotation.z=Math.PI*1.5;
+        portalLightMesh.material=portalMaterial;
+
         const poleLightsMesh=gltf.scene.children.find(x=>x.name==='PoleLights')
 
         poleLightsMesh.material=poleLightMaterial;
@@ -188,6 +219,7 @@ window.addEventListener('resize', () =>
     {
         elapsedTime = clock.getElapsedTime()
         particlesMaterial.uniforms.uTime.value=elapsedTime;
+        portalMaterial.uniforms.uTime.value=elapsedTime;
         
         // Update controls
         controls.update()
