@@ -15,8 +15,8 @@ import  PortalFragment from './Shaders/Portal/fragment.glsl'
 //Pefromance
 // var SPECTOR = require("spectorjs");
 
-var spector = new window.SPECTOR.Spector()
-spector.displayUI();
+// var spector = new window.SPECTOR.Spector()
+// spector.displayUI();
 /**
  * Base
  */
