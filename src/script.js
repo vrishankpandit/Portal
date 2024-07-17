@@ -78,33 +78,39 @@ gltfLoader.load(
 )
 
 const parameters = {}
-    parameters.count = 2000
-    parameters.size = 0.05
+    parameters.count = 200
+    parameters.size = 100.0
     
     
     const particlesPos = new Float32Array(parameters.count * 3)
+    const scaleArray=new Float32Array(parameters.count)
     
     for(let i=0;i<parameters.count;i++){
         const i3=i*3;
     
-        particlesPos[i3]=(Math.random() -0.5) * 5.0   ;
-        particlesPos[i3+1]=(Math.random() -0.5) * 5.0;
-        particlesPos[i3+2]=(Math.random() -0.5) * 5.0;
+        particlesPos[i3]=(Math.random() -0.5) * 10.0;
+        particlesPos[i3+1]=(Math.random() -0.5) * 10.0;
+        particlesPos[i3+2]=(Math.random() -0.5) * 10.0;
+
+        scaleArray[i]=Math.random()
     
     }
     
     const particlesGeometry=new THREE.BufferGeometry();
+
     particlesGeometry.setAttribute('position',new THREE.BufferAttribute(particlesPos,3))
+    particlesGeometry.setAttribute('aScale',new THREE.BufferAttribute(scaleArray,1))
     
     const particlesMaterial=new THREE.ShaderMaterial({
         depthWrite: false,
         blending: THREE.AdditiveBlending,
         vertexShader:FirefliesVertex,
         fragmentShader:FirefliesFragment,
+        transparent :true,
 
         uniforms:{
             uTime:{value : 0.0},
-            uSize:{value:8.0}
+            uSize:{value: parameters.size  * Math.min(window.devicePixelRatio, 2)}
         }
         // size: parameters.size,
         // sizeAttenuation: true,
