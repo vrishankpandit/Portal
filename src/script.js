@@ -94,6 +94,7 @@ gltfLoader.load(
         const portalLightMesh=gltf.scene.children.find(x=>x.name==='Portal')
         portalLightMesh.rotation.z=Math.PI*1.5;
         portalLightMesh.material=portalMaterial;
+        portalLightMesh.material.side=THREE.DoubleSide;
 
         const poleLightsMesh=gltf.scene.children.find(x=>x.name==='PoleLights')
 
